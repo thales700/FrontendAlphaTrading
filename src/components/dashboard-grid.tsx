@@ -167,7 +167,7 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
           }
         }}
         onDrag={(currentLayout) => {
-          // Resetar o timer a cada movimento; quando parar 1s, permite empurrões mas não compacta
+          // Resetar o timer a cada movimento; quando parar 300ms, permite empurrões mas não compacta
           if (idleRef.current) {
             window.clearTimeout(idleRef.current)
           }
@@ -175,7 +175,7 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
             setPreventCollisionState(false)
             setCompactTypeState(null)
             setLayout(currentLayout)
-          }, 1000)
+          }, 300)
         }}
         onDragStop={(currentLayout) => {
           // Ao soltar, permite empurrões mas mantém a posição exata (sem compactação)
