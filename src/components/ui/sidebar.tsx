@@ -40,7 +40,6 @@ type SidebarContextProps = {
   setOpenMobile: (open: boolean) => void
   isMobile: boolean
   toggleSidebar: () => void
-  collapsible?: "offcanvas" | "icon" | "none"
 }
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null)
@@ -55,14 +54,7 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-  // Backwards compatible: defaultOpen takes precedence if provided.
-  defaultOpen,
-  // New: start collapsed by default when true
-  defaultCollapsed = false,
-  // If true, hovering the sidebar wrapper will expand it (desktop only)
-  hoverable = false,
-  // Allow provider to set the collapsible mode for children
-  collapsible: providerCollapsible,
+  defaultOpen = true,
   open: openProp,
   onOpenChange: setOpenProp,
   className,
@@ -71,9 +63,6 @@ function SidebarProvider({
   ...props
 }: React.ComponentProps<"div"> & {
   defaultOpen?: boolean
-  defaultCollapsed?: boolean
-  hoverable?: boolean
-  collapsible?: "offcanvas" | "icon" | "none"
   open?: boolean
   onOpenChange?: (open: boolean) => void
 }) {
@@ -82,17 +71,10 @@ function SidebarProvider({
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
-  // Determine initial open state: explicit defaultOpen wins, otherwise inverse of defaultCollapsed
-  const initialDefaultOpen = defaultOpen !== undefined ? defaultOpen : !defaultCollapsed
-  const [_open, _setOpen] = React.useState<boolean>(initialDefaultOpen)
+  const [_open, _setOpen] = React.useState(defaultOpen)
   const open = openProp ?? _open
-
-  // setOpen supports optional persistence flag (default true) to avoid writing cookie on transient hover open/close
   const setOpen = React.useCallback(
-    (
-      value: boolean | ((value: boolean) => boolean),
-      persist: boolean = true
-    ) => {
+    (value: boolean | ((value: boolean) => boolean)) => {
       const openState = typeof value === "function" ? value(open) : value
       if (setOpenProp) {
         setOpenProp(openState)
@@ -100,10 +82,8 @@ function SidebarProvider({
         _setOpen(openState)
       }
 
-      if (persist) {
-        // This sets the cookie to keep the sidebar state.
-        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
-      }
+      // This sets the cookie to keep the sidebar state.
+      document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
     },
     [setOpenProp, open]
   )
@@ -112,9 +92,6 @@ function SidebarProvider({
   const toggleSidebar = React.useCallback(() => {
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open)
   }, [isMobile, setOpen, setOpenMobile])
-
-  // Track whether the sidebar was opened by hover so we can revert on mouseleave.
-  const hoverOpenedRef = React.useRef(false)
 
   // Adds a keyboard shortcut to toggle the sidebar.
   React.useEffect(() => {
@@ -145,9 +122,8 @@ function SidebarProvider({
       openMobile,
       setOpenMobile,
       toggleSidebar,
-      collapsible: providerCollapsible,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, providerCollapsible]
+    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
   )
 
   return (
@@ -162,31 +138,6 @@ function SidebarProvider({
               ...style,
             } as React.CSSProperties
           }
-          // Expand on hover when hoverable is enabled (desktop only). We open transiently and avoid persisting the state in cookie.
-          onMouseEnter={() => {
-            if (!hoverable || isMobile) return
-            // Only open on hover if currently closed
-            if (!open) {
-              // transient open (don't persist)
-              if (setOpenProp) {
-                setOpenProp(true)
-              } else {
-                _setOpen(true)
-              }
-              hoverOpenedRef.current = true
-            }
-          }}
-          onMouseLeave={() => {
-            if (!hoverable || isMobile) return
-            if (hoverOpenedRef.current) {
-              if (setOpenProp) {
-                setOpenProp(false)
-              } else {
-                _setOpen(false)
-              }
-              hoverOpenedRef.current = false
-            }
-          }}
           className={cn(
             "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
             className
@@ -203,7 +154,7 @@ function SidebarProvider({
 function Sidebar({
   side = "left",
   variant = "sidebar",
-  collapsible,
+  collapsible = "offcanvas",
   className,
   children,
   ...props
@@ -212,10 +163,9 @@ function Sidebar({
   variant?: "sidebar" | "floating" | "inset"
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
-  const { isMobile, state, openMobile, setOpenMobile, collapsible: providerCollapsible } = useSidebar()
-  const collapsibleMode = collapsible ?? providerCollapsible ?? "offcanvas"
+  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
 
-  if (collapsibleMode === "none") {
+  if (collapsible === "none") {
     return (
       <div
         data-slot="sidebar"
@@ -259,7 +209,7 @@ function Sidebar({
     <div
       className="group peer text-sidebar-foreground hidden md:block"
       data-state={state}
-      data-collapsible={state === "collapsed" ? collapsibleMode : ""}
+      data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}
       data-side={side}
       data-slot="sidebar"
