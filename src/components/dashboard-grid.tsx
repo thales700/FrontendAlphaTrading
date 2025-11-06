@@ -63,6 +63,9 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
   }, [items])
 
   const [layout, setLayout] = React.useState<Layout[] | null>(null)
+  const [preventCollisionState, setPreventCollisionState] = React.useState(false)
+  const [compactTypeState, setCompactTypeState] = React.useState<"horizontal" | "vertical" | null>(null)
+  const idleRef = React.useRef<number | null>(null)
 
   React.useEffect(() => {
     const loaded = loadLayout(storageKey)
@@ -101,8 +104,38 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
         isResizable={isEditable}
         draggableHandle=".drag-handle"
         useCSSTransforms={false}
-        compactType="horizontal"
-        preventCollision={false}
+        compactType={compactTypeState}
+        preventCollision={preventCollisionState}
+        onDragStart={() => {
+          // Enquanto arrasta, deixar sobrepor sem empurrar itens
+          setPreventCollisionState(true)
+          setCompactTypeState(null)
+          if (idleRef.current) {
+            window.clearTimeout(idleRef.current)
+            idleRef.current = null
+          }
+        }}
+        onDrag={(currentLayout) => {
+          // Resetar o timer a cada movimento; quando parar 1s, compacta
+          if (idleRef.current) {
+            window.clearTimeout(idleRef.current)
+          }
+          idleRef.current = window.setTimeout(() => {
+            setPreventCollisionState(false)
+            setCompactTypeState("horizontal")
+            setLayout(currentLayout)
+          }, 1000)
+        }}
+        onDragStop={(currentLayout) => {
+          // Ao soltar, compacta e permite empurrões
+          if (idleRef.current) {
+            window.clearTimeout(idleRef.current)
+            idleRef.current = null
+          }
+          setPreventCollisionState(false)
+          setCompactTypeState("horizontal")
+          setLayout(currentLayout)
+        }}
       >
         {items.map((item) => (
           <div key={item.id} data-grid={layout.find((l) => l.i === item.id)} className="h-full overflow-hidden">
