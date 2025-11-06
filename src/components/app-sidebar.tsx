@@ -1,7 +1,6 @@
 import * as React from "react"
 import {
   IconCamera,
-  IconChartBar,
   IconDashboard,
   IconDatabase,
   IconFileAi,
@@ -9,13 +8,12 @@ import {
   IconFileWord,
   IconFolder,
   IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
   IconReport,
   IconSearch,
   IconSettings,
   IconUsers,
 } from "@tabler/icons-react"
+import { CandlestickChart, Workflow, StretchHorizontal } from "lucide-react"
 
 import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
@@ -46,17 +44,17 @@ const data = {
     {
       title: "Ativos",
       url: "#",
-      icon: IconListDetails,
+      icon: CandlestickChart,
     },
     {
       title: "Cadeias de Markov",
       url: "#",
-      icon: IconChartBar,
+      icon: Workflow,
     },
     {
       title: "Níveis de Volatilidade",
       url: "#",
-      icon: IconFolder,
+      icon: StretchHorizontal,
     },
   ],
   navClouds: [
@@ -154,7 +152,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <IconInnerShadowTop className="!size-5" />
+                <span className="inline-flex items-center justify-center text-lg leading-none">α</span>
                 <span className="text-base font-semibold">TradingQuant</span>
               </a>
             </SidebarMenuButton>

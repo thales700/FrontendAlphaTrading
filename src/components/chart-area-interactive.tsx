@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-import { IconDragDrop2 } from "@tabler/icons-react"
+import { IconDragDrop2, IconX } from "@tabler/icons-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import {
@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import type { ChartConfig } from "@/components/ui/chart"
 import {
   ChartContainer,
@@ -141,7 +142,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function ChartAreaInteractive() {
+export function ChartAreaInteractive({ onClose }: { onClose?: () => void }) {
   const isMobile = useIsMobile()
   const [timeRange, setTimeRange] = React.useState("90d")
 
@@ -166,7 +167,7 @@ export function ChartAreaInteractive() {
   })
 
   return (
-    <Card className="@container/card flex h-full min-h-[220px] flex-col overflow-hidden">
+    <Card className="@container/card flex h-full min-h-[220px] flex-col overflow-hidden relative">
       <CardHeader className="min-h-11">
         <div className="flex items-center gap-2">
           <span className="drag-handle cursor-grab shrink-0 rounded text-muted-foreground inline-flex items-center" aria-label="Arraste para mover" title="Arraste para mover">
@@ -214,6 +215,17 @@ export function ChartAreaInteractive() {
         </CardAction>
         </div>
       </CardHeader>
+      {onClose && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-2 right-2 h-6 w-6 opacity-70 hover:opacity-100 z-10"
+          onClick={onClose}
+          aria-label="Fechar card"
+        >
+          <IconX className="h-4 w-4" />
+        </Button>
+      )}
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6 flex-1 min-h-0">
         <ChartContainer
           config={chartConfig}

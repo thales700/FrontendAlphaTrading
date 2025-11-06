@@ -1,0 +1,132 @@
+{
+  "AAPL": {
+    "GARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "EGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "FIGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    }
+  },
+  "MSFT": {
+    "GARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "EGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "FIGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    }
+  },
+  "GOOGL": {
+    "GARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "EGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "FIGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    }
+  },
+  "AMZN": {
+    "GARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "EGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "FIGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    }
+  },
+  "TSLA": {
+    "GARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "EGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    },
+    "FIGARCH": {
+      "normal": {
+        "error": "'float' object cannot be interpreted as an integer"
+      },
+      "t": {
+        "error": "'float' object cannot be interpreted as an integer"
+      }
+    }
+  }
+}

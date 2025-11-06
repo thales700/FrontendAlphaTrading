@@ -20,6 +20,26 @@ type DashboardGridProps = {
 
 const DEFAULT_COLS = 12
 
+// Função para determinar o tamanho inicial baseado no tipo de card
+function getInitialSize(itemId: string): { w: number; h: number; minW: number; minH: number } {
+  // Cards candlestick precisam de mais espaço
+  if (itemId.includes("candlestick-chart")) {
+    return {
+      w: 8, // Largura maior (8 de 12 colunas)
+      h: 10, // Altura maior (10 linhas)
+      minW: 6, // Largura mínima
+      minH: 8, // Altura mínima
+    }
+  }
+  // Tamanho padrão para outros cards
+  return {
+    w: 3,
+    h: 3,
+    minW: 3,
+    minH: 3,
+  }
+}
+
 function loadLayout(storageKey: string): Layout[] | null {
   try {
     const raw = localStorage.getItem(storageKey)
@@ -51,15 +71,19 @@ export function clearLayout(storageKey = "dashboard:grid:layout") {
 export default function DashboardGrid({ storageKey = "dashboard:grid:layout", items, isEditable = true }: DashboardGridProps) {
   const defaultLayout = React.useMemo<Layout[]>(() => {
     // Spread initial cards in a single row by default
-    return items.map((item, index) => ({
-      i: item.id,
-      x: (index * 3) % DEFAULT_COLS,
-      y: Math.floor((index * 3) / DEFAULT_COLS) * 2,
-      w: 3,
-      h: 3,
-      minW: 3,
-      minH: 3,
-    }))
+    return items.map((item, index) => {
+      const size = getInitialSize(item.id)
+      // Para candlestick, centralizar melhor na linha
+      const x = item.id.includes("candlestick-chart") 
+        ? Math.max(0, Math.floor((DEFAULT_COLS - size.w) / 2))
+        : (index * 3) % DEFAULT_COLS
+      return {
+        i: item.id,
+        x,
+        y: Math.floor((index * 3) / DEFAULT_COLS) * 2,
+        ...size,
+      }
+    })
   }, [items])
 
   const [layout, setLayout] = React.useState<Layout[] | null>(null)
@@ -69,8 +93,35 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
 
   React.useEffect(() => {
     const loaded = loadLayout(storageKey)
-    setLayout(loaded ?? defaultLayout)
-  }, [storageKey, defaultLayout])
+    if (loaded) {
+      // Filtrar layout para remover items que não existem mais
+      const itemIds = new Set(items.map((item) => item.id))
+      const filtered = loaded.filter((l) => itemIds.has(l.i))
+      // Adicionar novos items que não estão no layout
+      const existingIds = new Set(filtered.map((l) => l.i))
+      const newItems = items.filter((item) => !existingIds.has(item.id))
+      const newLayouts = newItems.map((item, index) => {
+        const existingLayout = defaultLayout.find((l) => l.i === item.id)
+        if (existingLayout) return existingLayout
+        // Calcular posição para novos items
+        const maxY = filtered.length > 0 ? Math.max(...filtered.map((l) => l.y + l.h)) : 0
+        const size = getInitialSize(item.id)
+        // Para candlestick, centralizar melhor na linha
+        const x = item.id.includes("candlestick-chart")
+          ? Math.max(0, Math.floor((DEFAULT_COLS - size.w) / 2))
+          : (index * 3) % DEFAULT_COLS
+        return {
+          i: item.id,
+          x,
+          y: maxY + 2,
+          ...size,
+        }
+      })
+      setLayout([...filtered, ...newLayouts])
+    } else {
+      setLayout(defaultLayout)
+    }
+  }, [storageKey, defaultLayout, items])
 
   const saveTimer = React.useRef<number | null>(null)
 
@@ -116,24 +167,24 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
           }
         }}
         onDrag={(currentLayout) => {
-          // Resetar o timer a cada movimento; quando parar 1s, compacta
+          // Resetar o timer a cada movimento; quando parar 1s, permite empurrões mas não compacta
           if (idleRef.current) {
             window.clearTimeout(idleRef.current)
           }
           idleRef.current = window.setTimeout(() => {
             setPreventCollisionState(false)
-            setCompactTypeState("horizontal")
+            setCompactTypeState(null)
             setLayout(currentLayout)
           }, 1000)
         }}
         onDragStop={(currentLayout) => {
-          // Ao soltar, compacta e permite empurrões
+          // Ao soltar, permite empurrões mas mantém a posição exata (sem compactação)
           if (idleRef.current) {
             window.clearTimeout(idleRef.current)
             idleRef.current = null
           }
           setPreventCollisionState(false)
-          setCompactTypeState("horizontal")
+          setCompactTypeState(null)
           setLayout(currentLayout)
         }}
       >
