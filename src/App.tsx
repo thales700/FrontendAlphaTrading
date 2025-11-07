@@ -88,7 +88,8 @@ export default function Page() {
           <div className="flex flex-1 flex-col">
             <div className="@container/main flex flex-1 flex-col gap-2 w-full">
               <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 w-full">
-                {currentRoute === "Dashboard" ? (
+                {/* Dashboard - mantido montado para performance, apenas escondido quando não ativo */}
+                <div style={{ display: currentRoute === "Dashboard" ? "contents" : "none" }}>
                   <>
                     <div className="flex items-center justify-between px-4 lg:px-6 sticky top-[var(--header-height)] z-20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-2">
                       <div className="flex items-center gap-3">
@@ -128,19 +129,25 @@ export default function Page() {
                       onAddCardRequest={handleAddCardRequest}
                     />
                   </>
-                ) : currentRoute === "Ativos" ? (
+                </div>
+                
+                {/* Outras páginas - renderizadas condicionalmente */}
+                {currentRoute === "Ativos" && (
                   <div className="px-4 lg:px-6">
                     <AssetsPage />
                   </div>
-                ) : currentRoute === "Cadeias de Markov" ? (
+                )}
+                {currentRoute === "Cadeias de Markov" && (
                   <div className="px-4 lg:px-6">
                     <MarkovChainsPage />
                   </div>
-                ) : currentRoute === "Níveis de Volatilidade" ? (
+                )}
+                {currentRoute === "Níveis de Volatilidade" && (
                   <div className="px-4 lg:px-6">
                     <VolatilityPage />
                   </div>
-                ) : (
+                )}
+                {currentRoute !== "Dashboard" && currentRoute !== "Ativos" && currentRoute !== "Cadeias de Markov" && currentRoute !== "Níveis de Volatilidade" && (
                   <div className="px-4 lg:px-6">
                     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center gap-4">
                       <h2 className="text-2xl font-bold">Em desenvolvimento</h2>

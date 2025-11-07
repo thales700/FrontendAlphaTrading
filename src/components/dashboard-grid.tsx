@@ -84,7 +84,8 @@ export function clearLayout(storageKey = "dashboard:grid:layout") {
   } catch {}
 }
 
-export default function DashboardGrid({ storageKey = "dashboard:grid:layout", items, isEditable = true }: DashboardGridProps) {
+// Componente memoizado para evitar re-renders desnecessários
+const DashboardGrid = React.memo(function DashboardGrid({ storageKey = "dashboard:grid:layout", items, isEditable = true }: DashboardGridProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [containerWidth, setContainerWidth] = React.useState<number>(1200) // Largura padrão inicial
   
@@ -262,6 +263,8 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
       </div>
     </div>
   )
-}
+})
+
+export default DashboardGrid
 
 

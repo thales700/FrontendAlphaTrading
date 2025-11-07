@@ -15,6 +15,9 @@ import * as React from "react"
 // import { Button } from "@/components/ui/button"
 import DashboardGrid from "@/components/dashboard-grid"
 // import { ChartAreaInteractive } from "@/components/chart-area-interactive"
+
+// Import direto dos componentes (sem lazy loading) já que mantemos o dashboard montado
+// Isso evita o reload dos gráficos ao voltar ao dashboard
 import { ChartCandlestick } from "@/components/chart-candlestick"
 import { ChartMarkovChains } from "@/components/chart-markov-chains"
 import { ChartVolatilityGarch } from "@/components/chart-volatility-garch"

@@ -4,12 +4,8 @@ import * as React from "react"
 import { IconDragDrop2, IconX } from "@tabler/icons-react"
 import quotationsData from "@/mock/symbols/quotations.json"
 
-// Lazy load do Chart para melhorar performance inicial
-const Chart = React.lazy(() => 
-  import("react-apexcharts").then(module => ({ 
-    default: module.default || module 
-  }))
-)
+// Import direto do ApexCharts para evitar reload ao voltar ao dashboard
+import Chart from "react-apexcharts"
 
 import {
   Card,
@@ -38,7 +34,8 @@ export const description = "Candlestick chart with technical indicators"
 type Timeframe = "daily" | "15min"
 type Asset = keyof typeof quotationsData
 
-export function ChartCandlestick({ onClose }: { onClose?: () => void }) {
+// Componente memoizado para evitar re-renders desnecessários
+export const ChartCandlestick = React.memo(function ChartCandlestick({ onClose }: { onClose?: () => void }) {
   const cardRef = React.useRef<HTMLDivElement>(null)
   const contentRef = React.useRef<HTMLDivElement>(null)
   const [chartHeight, setChartHeight] = React.useState(500)
@@ -445,19 +442,13 @@ export function ChartCandlestick({ onClose }: { onClose?: () => void }) {
           {/* Gráfico Principal - Candlestick + Volume */}
           {candlestickSeries && candlestickSeries.length > 0 ? (
             <div style={{ minHeight: `${chartHeight}px` }}>
-              <React.Suspense fallback={
-                <div className="flex items-center justify-center h-full text-muted-foreground">
-                  Carregando gráfico...
-                </div>
-              }>
-                <Chart
-                  key={`candlestick-${showVolume ? 'with-volume' : 'no-volume'}-${selectedAsset}-${selectedTimeframe}`}
-                  options={candlestickOptions}
-                  series={candlestickSeries}
-                  type="candlestick"
-                  height={chartHeight}
-                />
-              </React.Suspense>
+              <Chart
+                key={`candlestick-${showVolume ? 'with-volume' : 'no-volume'}-${selectedAsset}-${selectedTimeframe}`}
+                options={candlestickOptions}
+                series={candlestickSeries}
+                type="candlestick"
+                height={chartHeight}
+              />
             </div>
           ) : (
             <div className="flex items-center justify-center h-[500px] text-muted-foreground">
@@ -468,5 +459,5 @@ export function ChartCandlestick({ onClose }: { onClose?: () => void }) {
       </CardContent>
     </Card>
   )
-}
+})
 

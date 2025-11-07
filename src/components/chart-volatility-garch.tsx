@@ -3,12 +3,8 @@
 import * as React from "react"
 import { IconDragDrop2, IconX } from "@tabler/icons-react"
 
-// Lazy load do Chart para melhorar performance inicial
-const Chart = React.lazy(() => 
-  import("react-apexcharts").then(module => ({ 
-    default: module.default || module 
-  }))
-)
+// Import direto do ApexCharts para evitar reload ao voltar ao dashboard
+import Chart from "react-apexcharts"
 
 import {
   Card,
@@ -57,7 +53,8 @@ type VolatilityData = {
   [asset: string]: VolatilityAssetData
 }
 
-export function ChartVolatilityGarch({ onClose }: { onClose?: () => void }) {
+// Componente memoizado para evitar re-renders desnecessários
+export const ChartVolatilityGarch = React.memo(function ChartVolatilityGarch({ onClose }: { onClose?: () => void }) {
   const cardRef = React.useRef<HTMLDivElement>(null)
   const contentRef = React.useRef<HTMLDivElement>(null)
   const [chartHeight, setChartHeight] = React.useState(500)
@@ -600,19 +597,13 @@ export function ChartVolatilityGarch({ onClose }: { onClose?: () => void }) {
           {/* Gráfico Principal */}
           {chartSeries && chartSeries.length > 0 ? (
             <div style={{ minHeight: `${chartHeight}px` }}>
-              <React.Suspense fallback={
-                <div className="flex items-center justify-center h-full text-muted-foreground">
-                  Carregando gráfico...
-                </div>
-              }>
-                <Chart
-                  key={`volatility-${selectedAsset}-${selectedModel}`}
-                  options={chartOptions}
-                  series={chartSeries}
-                  type="candlestick"
-                  height={chartHeight}
-                />
-              </React.Suspense>
+              <Chart
+                key={`volatility-${selectedAsset}-${selectedModel}`}
+                options={chartOptions}
+                series={chartSeries}
+                type="candlestick"
+                height={chartHeight}
+              />
             </div>
           ) : (
             <div className="flex items-center justify-center h-[500px] text-muted-foreground">
@@ -623,5 +614,5 @@ export function ChartVolatilityGarch({ onClose }: { onClose?: () => void }) {
       </CardContent>
     </Card>
   )
-}
+})
 

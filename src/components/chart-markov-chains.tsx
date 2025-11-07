@@ -4,12 +4,8 @@ import * as React from "react"
 import { IconDragDrop2, IconX } from "@tabler/icons-react"
 import markovData from "@/mock/markov/hidden_markov_model.json"
 
-// Lazy load do Chart para melhorar performance inicial
-const Chart = React.lazy(() => 
-  import("react-apexcharts").then(module => ({ 
-    default: module.default || module 
-  }))
-)
+// Import direto do ApexCharts para evitar reload ao voltar ao dashboard
+import Chart from "react-apexcharts"
 
 import {
   Card,
@@ -45,7 +41,8 @@ const DEFAULT_COLORS: Record<number, string> = {
   2: "#ffa726", // Laranja para estado 2
 }
 
-export function ChartMarkovChains({ onClose }: { onClose?: () => void }) {
+// Componente memoizado para evitar re-renders desnecessários
+export const ChartMarkovChains = React.memo(function ChartMarkovChains({ onClose }: { onClose?: () => void }) {
   const cardRef = React.useRef<HTMLDivElement>(null)
   const contentRef = React.useRef<HTMLDivElement>(null)
   const [chartHeight, setChartHeight] = React.useState(500)
@@ -523,19 +520,13 @@ export function ChartMarkovChains({ onClose }: { onClose?: () => void }) {
         <div className="space-y-4">
           {candlestickSeries && candlestickSeries.length > 0 ? (
             <div style={{ minHeight: `${chartHeight}px`, opacity: isPending ? 0.6 : 1, transition: 'opacity 0.2s' }}>
-              <React.Suspense fallback={
-                <div className="flex items-center justify-center h-full text-muted-foreground">
-                  Carregando gráfico...
-                </div>
-              }>
-                <Chart
-                  key={`markov-${numStates}-${selectedAsset}-${JSON.stringify(stateColors)}`}
-                  options={candlestickOptions}
-                  series={candlestickSeries}
-                  type="candlestick"
-                  height={chartHeight}
-                />
-              </React.Suspense>
+              <Chart
+                key={`markov-${numStates}-${selectedAsset}-${JSON.stringify(stateColors)}`}
+                options={candlestickOptions}
+                series={candlestickSeries}
+                type="candlestick"
+                height={chartHeight}
+              />
             </div>
           ) : (
             <div className="flex items-center justify-center h-[500px] text-muted-foreground">
@@ -546,5 +537,5 @@ export function ChartMarkovChains({ onClose }: { onClose?: () => void }) {
       </CardContent>
     </Card>
   )
-}
+})
 
