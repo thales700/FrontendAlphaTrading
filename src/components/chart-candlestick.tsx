@@ -13,7 +13,6 @@ const Chart = React.lazy(() =>
 
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -146,7 +145,7 @@ export function ChartCandlestick({ onClose }: { onClose?: () => void }) {
 
   if (!chartData) {
     return (
-      <Card className="@container/card flex h-full min-h-[500px] flex-col overflow-hidden relative">
+      <Card className="@container/card flex h-full flex-col overflow-hidden relative">
         <CardHeader>
           <CardTitle>Gráfico Candlestick</CardTitle>
           <CardDescription>Nenhum dado disponível</CardDescription>
@@ -382,19 +381,20 @@ export function ChartCandlestick({ onClose }: { onClose?: () => void }) {
   }, [chartHeight, showVolume, chartData])
 
   return (
-    <Card ref={cardRef} className="@container/card flex h-full min-h-[600px] flex-col overflow-hidden relative">
-      <CardHeader className="min-h-11">
+    <Card ref={cardRef} className="@container/card flex h-full flex-col overflow-hidden relative">
+      <CardHeader className="min-h-11 flex-shrink-0">
+        {/* Primeira linha: Título e controles principais */}
         <div className="flex items-center gap-2 flex-wrap">
           <span className="drag-handle cursor-grab shrink-0 rounded text-muted-foreground inline-flex items-center" aria-label="Arraste para mover" title="Arraste para mover">
             <IconDragDrop2 />
           </span>
-          <CardTitle>Gráfico Candlestick</CardTitle>
-          <CardDescription>
+          <CardTitle className="shrink-0">Gráfico Candlestick</CardTitle>
+          <CardDescription className="shrink-0">
             {selectedAsset} - {selectedTimeframe === "daily" ? "Diário" : "15 Minutos"}
           </CardDescription>
-          <CardAction className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap ml-auto">
             <Select value={selectedAsset} onValueChange={(value) => setSelectedAsset(value as Asset)}>
-              <SelectTrigger className="w-32" size="sm">
+              <SelectTrigger className="w-32 shrink-0" size="sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -410,14 +410,16 @@ export function ChartCandlestick({ onClose }: { onClose?: () => void }) {
               value={selectedTimeframe}
               onValueChange={(value) => value && setSelectedTimeframe(value as Timeframe)}
               variant="outline"
+              className="shrink-0"
             >
               <ToggleGroupItem value="daily">Diário</ToggleGroupItem>
               <ToggleGroupItem value="15min">15min</ToggleGroupItem>
             </ToggleGroup>
-          </CardAction>
+          </div>
         </div>
-        <div className="flex items-center gap-4 flex-wrap mt-2">
-          <div className="flex items-center gap-2">
+        {/* Segunda linha: Checkbox de volume */}
+        <div className="flex items-center gap-2 flex-wrap mt-2 w-full">
+          <div className="flex items-center gap-2 shrink-0">
             <Checkbox
               id="volume"
               checked={showVolume}

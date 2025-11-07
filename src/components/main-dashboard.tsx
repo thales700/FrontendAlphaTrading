@@ -1,23 +1,24 @@
 "use client"
 
 import * as React from "react"
-import { IconDragDrop2, IconTrendingDown, IconTrendingUp, IconX } from "@tabler/icons-react"
+// import { IconDragDrop2, IconTrendingDown, IconTrendingUp, IconX } from "@tabler/icons-react"
 
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+// import { Badge } from "@/components/ui/badge"
+// import {
+//   Card,
+//   CardAction,
+//   CardDescription,
+//   CardFooter,
+//   CardHeader,
+//   CardTitle,
+// } from "@/components/ui/card"
+// import { Button } from "@/components/ui/button"
 import DashboardGrid from "@/components/dashboard-grid"
-import { ChartAreaInteractive } from "@/components/chart-area-interactive"
+// import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { ChartCandlestick } from "@/components/chart-candlestick"
+import { ChartMarkovChains } from "@/components/chart-markov-chains"
 
-type CardType = "total-revenue" | "new-customers" | "active-accounts" | "growth-rate" | "total-visitors" | "candlestick-chart"
+type CardType = /* "total-revenue" | "new-customers" | "active-accounts" | "growth-rate" | "total-visitors" | */ "candlestick-chart" | "markov-chains"
 
 type DashboardItem = {
   id: string
@@ -26,7 +27,7 @@ type DashboardItem = {
 }
 
 const CARD_TEMPLATES: Record<CardType, { label: string; createElement: (onClose: () => void) => React.ReactNode }> = {
-  "total-revenue": {
+  /* "total-revenue": {
     label: "Total Revenue",
     createElement: (onClose) => (
       <Card className="@container/card h-full overflow-hidden relative">
@@ -185,23 +186,59 @@ const CARD_TEMPLATES: Record<CardType, { label: string; createElement: (onClose:
   "total-visitors": {
     label: "Total Visitors (Gráfico)",
     createElement: (onClose) => <ChartAreaInteractive onClose={onClose} />,
-  },
+  }, */
   "candlestick-chart": {
     label: "Gráfico Candlestick",
     createElement: (onClose) => <ChartCandlestick onClose={onClose} />,
   },
+  "markov-chains": {
+    label: "Cadeias de Markov",
+    createElement: (onClose) => <ChartMarkovChains onClose={onClose} />,
+  },
 }
 
 export function MainDashboard({ storageKey = "dashboard:grid:main", isEditable = true, onAddCardRequest }: { storageKey?: string; isEditable?: boolean; onAddCardRequest?: (addCard: (type: CardType) => void) => void }) {
+  const cardsStorageKey = `${storageKey}:cards`
+  
   const [items, setItems] = React.useState<DashboardItem[]>(() => {
-    // Inicializar com cards padrão
-    const defaultTypes: CardType[] = ["total-revenue", "new-customers", "active-accounts", "growth-rate", "total-visitors", "candlestick-chart"]
+    // Tentar carregar cards salvos do localStorage
+    try {
+      const savedCards = localStorage.getItem(cardsStorageKey)
+      if (savedCards) {
+        const parsed = JSON.parse(savedCards) as Array<{ id: string; type: CardType }>
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.map((item) => ({
+            id: item.id,
+            type: item.type,
+            element: null as React.ReactNode,
+          }))
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao carregar cards salvos:", error)
+    }
+    
+    // Inicializar com cards padrão se não houver cards salvos
+    const defaultTypes: CardType[] = [/* "total-revenue", "new-customers", "active-accounts", "growth-rate", "total-visitors", */ "candlestick-chart"]
     return defaultTypes.map((type) => ({
       id: type,
       type,
       element: null as React.ReactNode, // Será criado no render
     }))
   })
+  
+  // Salvar cards no localStorage sempre que mudarem
+  React.useEffect(() => {
+    try {
+      const cardsToSave = items.map((item) => ({
+        id: item.id,
+        type: item.type,
+      }))
+      localStorage.setItem(cardsStorageKey, JSON.stringify(cardsToSave))
+    } catch (error) {
+      console.error("Erro ao salvar cards:", error)
+    }
+  }, [items, cardsStorageKey])
 
   const removeCard = React.useCallback((id: string) => {
     setItems((prev) => prev.filter((item) => item.id !== id))

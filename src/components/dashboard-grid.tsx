@@ -1,11 +1,9 @@
 "use client"
 
 import React from "react"
-import GridLayout, { Layout, WidthProvider } from "react-grid-layout"
+import GridLayout, { Layout } from "react-grid-layout"
 import "react-resizable/css/styles.css"
 import { toast } from "sonner"
-
-const ResponsiveGridLayout = WidthProvider(GridLayout)
 
 type DashboardItem = {
   id: string
@@ -22,21 +20,30 @@ const DEFAULT_COLS = 12
 
 // Função para determinar o tamanho inicial baseado no tipo de card
 function getInitialSize(itemId: string): { w: number; h: number; minW: number; minH: number } {
+  // Card de Markov precisa de ainda mais espaço devido aos controles e gráfico complexo
+  if (itemId.includes("markov-chains")) {
+    return {
+      w: 12, // Largura total (12 de 12 colunas) para garantir espaço para todos os controles
+      h: 14, // Altura maior (14 linhas) para acomodar header com controles e gráfico
+      minW: 2, // Sem limitação de largura mínima
+      minH: 3, // Altura mínima reduzida
+    }
+  }
   // Cards candlestick precisam de mais espaço
   if (itemId.includes("candlestick-chart")) {
     return {
       w: 8, // Largura maior (8 de 12 colunas)
       h: 10, // Altura maior (10 linhas)
-      minW: 6, // Largura mínima
-      minH: 8, // Altura mínima
+      minW: 2, // Sem limitação de largura mínima
+      minH: 3, // Altura mínima reduzida
     }
   }
   // Tamanho padrão para outros cards
   return {
     w: 3,
     h: 3,
-    minW: 3,
-    minH: 3,
+    minW: 2, // Sem limitação de largura mínima
+    minH: 2, // Altura mínima reduzida
   }
 }
 
@@ -69,6 +76,29 @@ export function clearLayout(storageKey = "dashboard:grid:layout") {
 }
 
 export default function DashboardGrid({ storageKey = "dashboard:grid:layout", items, isEditable = true }: DashboardGridProps) {
+  const containerRef = React.useRef<HTMLDivElement>(null)
+  const [containerWidth, setContainerWidth] = React.useState<number>(1200) // Largura padrão inicial
+  
+  // Calcular largura do container apenas uma vez na montagem
+  React.useLayoutEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.offsetWidth
+        if (width > 0) {
+          setContainerWidth(width)
+        }
+      }
+    }
+    
+    // Calcular imediatamente
+    updateWidth()
+    
+    // Também calcular após um pequeno delay para garantir que o DOM está pronto
+    const timeoutId = setTimeout(updateWidth, 0)
+    
+    return () => clearTimeout(timeoutId)
+  }, []) // Executar apenas uma vez na montagem
+
   const defaultLayout = React.useMemo<Layout[]>(() => {
     // Spread initial cards in a single row by default
     return items.map((item, index) => {
@@ -87,8 +117,6 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
   }, [items])
 
   const [layout, setLayout] = React.useState<Layout[] | null>(null)
-  const [preventCollisionState, setPreventCollisionState] = React.useState(false)
-  const [compactTypeState, setCompactTypeState] = React.useState<"horizontal" | "vertical" | null>(null)
   const idleRef = React.useRef<number | null>(null)
 
   React.useEffect(() => {
@@ -124,17 +152,21 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
   }, [storageKey, defaultLayout, items])
 
   const saveTimer = React.useRef<number | null>(null)
+  const isDraggingRef = React.useRef(false)
 
   const handleLayoutChange = React.useCallback(
     (current: Layout[]) => {
-      setLayout(current)
-      if (saveTimer.current) {
-        window.clearTimeout(saveTimer.current)
+      // Apenas atualizar o layout se não estiver arrastando para evitar empurrões automáticos
+      if (!isDraggingRef.current) {
+        setLayout(current)
+        if (saveTimer.current) {
+          window.clearTimeout(saveTimer.current)
+        }
+        saveTimer.current = window.setTimeout(() => {
+          saveLayout(storageKey, current)
+          toast.success("Layout salvo")
+        }, 500)
       }
-      saveTimer.current = window.setTimeout(() => {
-        saveLayout(storageKey, current)
-        toast.success("Layout salvo")
-      }, 500)
     },
     [storageKey]
   )
@@ -142,58 +174,83 @@ export default function DashboardGrid({ storageKey = "dashboard:grid:layout", it
   if (!layout) return null
 
   return (
-    <div className="px-4 lg:px-6 relative z-0">
-      <ResponsiveGridLayout
-        className="layout"
-        layout={layout}
-        cols={DEFAULT_COLS}
-        rowHeight={50}
-        margin={[16, 16]}
-        containerPadding={[0, 0]}
-        onLayoutChange={handleLayoutChange}
-        isDraggable={isEditable}
-        isResizable={isEditable}
-        draggableHandle=".drag-handle"
-        useCSSTransforms={false}
-        compactType={compactTypeState}
-        preventCollision={preventCollisionState}
-        onDragStart={() => {
-          // Enquanto arrasta, deixar sobrepor sem empurrar itens
-          setPreventCollisionState(true)
-          setCompactTypeState(null)
-          if (idleRef.current) {
-            window.clearTimeout(idleRef.current)
-            idleRef.current = null
-          }
-        }}
-        onDrag={(currentLayout) => {
-          // Resetar o timer a cada movimento; quando parar 300ms, permite empurrões mas não compacta
-          if (idleRef.current) {
-            window.clearTimeout(idleRef.current)
-          }
-          idleRef.current = window.setTimeout(() => {
-            setPreventCollisionState(false)
-            setCompactTypeState(null)
+    <div ref={containerRef} className="dashboard-scroll-container px-4 lg:px-6 relative z-0 overflow-auto">
+      <div className="min-w-max pb-8">
+        <GridLayout
+          className="layout"
+          layout={layout}
+          width={Math.max(containerWidth, 2000)} // Largura mínima para permitir posicionamento livre
+          cols={DEFAULT_COLS}
+          rowHeight={50}
+          margin={[16, 16]}
+          containerPadding={[0, 0]}
+          onLayoutChange={handleLayoutChange}
+          isDraggable={isEditable}
+          isResizable={isEditable}
+          draggableHandle=".drag-handle"
+          useCSSTransforms={false}
+          compactType={null} // Nunca compactar - permite posicionamento livre
+          preventCollision={true} // Prevenir colisão mas permitir sobreposição
+          allowOverlap={true} // Permitir sobreposição total dos cards
+          onDragStart={() => {
+            // Marcar que está arrastando
+            isDraggingRef.current = true
+            if (idleRef.current) {
+              window.clearTimeout(idleRef.current)
+              idleRef.current = null
+            }
+          }}
+          onDrag={() => {
+            // Não fazer nada durante o arrasto - apenas permitir movimento
+          }}
+          onDragStop={(currentLayout) => {
+            // Desmarcar arrasto e salvar posição exata
+            isDraggingRef.current = false
+            if (idleRef.current) {
+              window.clearTimeout(idleRef.current)
+              idleRef.current = null
+            }
             setLayout(currentLayout)
-          }, 300)
-        }}
-        onDragStop={(currentLayout) => {
-          // Ao soltar, permite empurrões mas mantém a posição exata (sem compactação)
-          if (idleRef.current) {
-            window.clearTimeout(idleRef.current)
-            idleRef.current = null
-          }
-          setPreventCollisionState(false)
-          setCompactTypeState(null)
-          setLayout(currentLayout)
-        }}
-      >
-        {items.map((item) => (
-          <div key={item.id} data-grid={layout.find((l) => l.i === item.id)} className="h-full overflow-hidden">
-            {item.element}
-          </div>
-        ))}
-      </ResponsiveGridLayout>
+            // Salvar layout imediatamente após soltar
+            if (saveTimer.current) {
+              window.clearTimeout(saveTimer.current)
+            }
+            saveTimer.current = window.setTimeout(() => {
+              saveLayout(storageKey, currentLayout)
+              toast.success("Layout salvo")
+            }, 500)
+          }}
+          onResizeStart={() => {
+            // Marcar que está redimensionando
+            isDraggingRef.current = true
+            if (idleRef.current) {
+              window.clearTimeout(idleRef.current)
+              idleRef.current = null
+            }
+          }}
+          onResize={() => {
+            // Não fazer nada durante o redimensionamento
+          }}
+          onResizeStop={(currentLayout) => {
+            // Salvar também após redimensionar
+            isDraggingRef.current = false
+            setLayout(currentLayout)
+            if (saveTimer.current) {
+              window.clearTimeout(saveTimer.current)
+            }
+            saveTimer.current = window.setTimeout(() => {
+              saveLayout(storageKey, currentLayout)
+              toast.success("Layout salvo")
+            }, 500)
+          }}
+        >
+          {items.map((item) => (
+            <div key={item.id} data-grid={layout.find((l) => l.i === item.id)} className="h-full overflow-hidden">
+              {item.element}
+            </div>
+          ))}
+        </GridLayout>
+      </div>
     </div>
   )
 }

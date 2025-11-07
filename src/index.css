@@ -173,3 +173,57 @@
 body {
   letter-spacing: var(--tracking-normal);
 }
+
+/* Grid Layout com scroll livre */
+.react-grid-layout {
+  position: relative;
+}
+
+/* Garantir que o grid não force compactação */
+.react-grid-item {
+  transition: none !important;
+  z-index: 1;
+}
+
+/* Card sendo arrastado fica acima dos outros */
+.react-grid-item.react-draggable-dragging {
+  z-index: 100 !important;
+  transition: none !important;
+}
+
+/* Card sendo redimensionado */
+.react-grid-item.resizing {
+  z-index: 100 !important;
+}
+
+.react-grid-item.react-grid-placeholder {
+  background: oklch(0.8348 0.1302 160.9080 / 0.2);
+  opacity: 0.2;
+  transition-duration: 100ms;
+  z-index: 2;
+  border-radius: 8px;
+}
+
+/* Estilizar a área de scroll */
+.dashboard-scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.7 0 0 / 0.3) transparent;
+}
+
+.dashboard-scroll-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dashboard-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dashboard-scroll-container::-webkit-scrollbar-thumb {
+  background-color: oklch(0.7 0 0 / 0.3);
+  border-radius: 4px;
+}
+
+.dashboard-scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: oklch(0.6 0 0 / 0.5);
+}
