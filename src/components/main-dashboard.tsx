@@ -17,8 +17,9 @@ import DashboardGrid from "@/components/dashboard-grid"
 // import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { ChartCandlestick } from "@/components/chart-candlestick"
 import { ChartMarkovChains } from "@/components/chart-markov-chains"
+import { ChartVolatilityGarch } from "@/components/chart-volatility-garch"
 
-type CardType = /* "total-revenue" | "new-customers" | "active-accounts" | "growth-rate" | "total-visitors" | */ "candlestick-chart" | "markov-chains"
+type CardType = /* "total-revenue" | "new-customers" | "active-accounts" | "growth-rate" | "total-visitors" | */ "candlestick-chart" | "markov-chains" | "volatility-garch"
 
 type DashboardItem = {
   id: string
@@ -194,6 +195,10 @@ const CARD_TEMPLATES: Record<CardType, { label: string; createElement: (onClose:
   "markov-chains": {
     label: "Cadeias de Markov",
     createElement: (onClose) => <ChartMarkovChains onClose={onClose} />,
+  },
+  "volatility-garch": {
+    label: "Níveis de Volatilidade GARCH",
+    createElement: (onClose) => <ChartVolatilityGarch onClose={onClose} />,
   },
 }
 

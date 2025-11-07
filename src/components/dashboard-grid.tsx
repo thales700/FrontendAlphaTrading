@@ -29,6 +29,15 @@ function getInitialSize(itemId: string): { w: number; h: number; minW: number; m
       minH: 3, // Altura mínima reduzida
     }
   }
+  // Cards de volatilidade GARCH com tamanho médio
+  if (itemId.includes("volatility-garch")) {
+    return {
+      w: 8, // Largura média (8 de 12 colunas) - similar ao candlestick
+      h: 10, // Altura média (10 linhas) para acomodar gráfico e controles
+      minW: 2, // Sem limitação de largura mínima
+      minH: 3, // Altura mínima reduzida
+    }
+  }
   // Cards candlestick precisam de mais espaço
   if (itemId.includes("candlestick-chart")) {
     return {

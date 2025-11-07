@@ -8,6 +8,8 @@ import {
 
 import { MainDashboard, CARD_TEMPLATES, type CardType } from "@/components/main-dashboard"
 import { AssetsPage } from "@/components/assets-page"
+import { MarkovChainsPage } from "@/components/markov-chains-page"
+import { VolatilityPage } from "@/components/volatility-page"
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { clearLayout } from "@/components/dashboard-grid"
@@ -129,6 +131,14 @@ export default function Page() {
                 ) : currentRoute === "Ativos" ? (
                   <div className="px-4 lg:px-6">
                     <AssetsPage />
+                  </div>
+                ) : currentRoute === "Cadeias de Markov" ? (
+                  <div className="px-4 lg:px-6">
+                    <MarkovChainsPage />
+                  </div>
+                ) : currentRoute === "Níveis de Volatilidade" ? (
+                  <div className="px-4 lg:px-6">
+                    <VolatilityPage />
                   </div>
                 ) : (
                   <div className="px-4 lg:px-6">
