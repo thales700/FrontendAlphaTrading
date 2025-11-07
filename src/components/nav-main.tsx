@@ -1,4 +1,4 @@
-import { type Icon } from "@tabler/icons-react"
+import * as React from "react"
 
  
 import {
@@ -15,7 +15,7 @@ export function NavMain({
   items: {
     title: string
     url: string
-    icon?: Icon
+    icon?: React.ComponentType<any>
   }[]
 }) {
   return (
