@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "react-router-dom"
 import {
   IconCamera,
   IconDashboard,
@@ -34,22 +35,22 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/dashboard",
       icon: IconDashboard,
     },
     {
       title: "Ativos",
-      url: "#",
+      url: "/assets",
       icon: CandlestickChart,
     },
     {
       title: "Cadeias de Markov",
-      url: "#",
+      url: "/markov-chains",
       icon: Workflow,
     },
     {
       title: "Níveis de Volatilidade",
-      url: "#",
+      url: "/volatility",
       icon: StretchHorizontal,
     },
   ],
@@ -147,10 +148,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
+              <Link to="/dashboard">
                 <span className="inline-flex items-center justify-center text-lg leading-none">α</span>
                 <span className="text-base font-semibold">TradingQuant</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
