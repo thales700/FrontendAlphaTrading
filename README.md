@@ -2,11 +2,19 @@
 
 Interface web moderna e interativa para análise financeira com dashboard personalizável, gráficos em tempo real e visualizações de dados de mercado.
 
+<<<<<<< HEAD
 > **Repositório Original**: [FrontendAlphaTrading](https://github.com/thales700/FrontendAlphaTrading)
 
 ## 📝 Sobre
 
 O frontend do FinancialDash é uma aplicação web construída com React e TypeScript que oferece:
+=======
+> **Repositório Original**: [AlphaTradingDashboard](https://github.com/thales700/alphaTradingDashboard/tree/main)
+
+## 📝 Sobre
+
+O frontend do AlphaTradingDashboard é uma aplicação web construída com React e TypeScript que oferece:
+>>>>>>> 7b1da332b56a078a5435fe904ba1eadbb2fab4c4
 
 - **Dashboard Personalizável**: Layout drag-and-drop com widgets reorganizáveis
 - **Gráficos Interativos**: Visualizações de dados usando Recharts e ApexCharts
@@ -139,6 +147,138 @@ docker-compose up frontend
 cd frontend
 docker build -t financialdash-frontend .
 docker run -p 5173:5173 financialdash-frontend
+<<<<<<< HEAD
+=======
+```
+
+### Opção 2: Ambiente Local
+
+#### 1. Pré-requisitos
+
+- Node.js 20+ e npm instalados
+
+#### 2. Instalar dependências
+
+```bash
+cd frontend
+npm install
+```
+
+#### 3. Configurar variáveis de ambiente (opcional)
+
+Crie um arquivo `.env` na pasta `frontend`:
+
+```env
+VITE_API_URL=http://localhost:8000
+```
+
+#### 4. Executar em modo desenvolvimento
+
+```bash
+npm run dev
+```
+
+A aplicação estará disponível em: http://localhost:5173
+
+#### 5. Build para produção
+
+```bash
+# Gerar build otimizado
+npm run build
+
+# Preview do build de produção
+npm run preview
+```
+
+## 📱 Funcionalidades
+
+### Dashboard Principal
+- **Layout Personalizável**: Arraste e solte widgets para reorganizar
+- **Persistência**: Layout salvo no localStorage
+- **Cards Informativos**: Resumo de métricas principais
+- **Gráficos de Resumo**: Visualizações rápidas de dados
+
+### Análise de Ativos
+- **Gráfico de Candlestick**: Visualização OHLC (Open, High, Low, Close)
+- **Gráfico de Área Interativo**: Dados históricos com zoom e pan
+- **Múltiplos Símbolos**: Suporte para diversos ativos financeiros
+- **Intervalos de Tempo**: Seleção de granularidade (diário, semanal, mensal)
+
+### Regimes de Markov
+- **Visualização de Estados**: Identificação de regimes de mercado
+- **Gráficos de Probabilidade**: Probabilidades de transição entre estados
+- **Cores por Regime**: Diferenciação visual de estados de mercado
+- **Análise Temporal**: Evolução dos regimes ao longo do tempo
+
+### Volatilidade GARCH
+- **Níveis de Volatilidade**: Visualização de diferentes níveis
+- **Gráficos Interativos**: Zoom, pan e tooltips informativos
+- **Modelos Configuráveis**: Suporte para GARCH, ARCH, EGARCH
+- **Distribuições**: Normal, Student-t, Skewed-t
+
+## 🎨 Componentes UI
+
+O projeto utiliza uma biblioteca de componentes baseada em **Radix UI** e estilizada com **TailwindCSS**:
+
+### Componentes Disponíveis
+- `Button`: Botões com variantes e tamanhos
+- `Card`: Containers para conteúdo
+- `Chart`: Wrapper para gráficos
+- `Table`: Tabelas responsivas
+- `Select`: Dropdowns e seletores
+- `Input`: Campos de entrada
+- `Tabs`: Navegação por abas
+- `Badge`: Etiquetas e tags
+- `Avatar`: Imagens de perfil
+- `Tooltip`: Dicas contextuais
+- `Dropdown Menu`: Menus suspensos
+- `Sidebar`: Barra lateral
+- `Drawer`: Painel deslizante
+- `Skeleton`: Loading states
+- `Toast`: Notificações (via Sonner)
+
+## 📜 Scripts Disponíveis
+
+```bash
+# Desenvolvimento com hot reload
+npm run dev
+
+# Build de produção
+npm run build
+
+# Preview do build
+npm run preview
+
+# Linting do código
+npm run lint
+
+# Type checking
+npm run type-check
+```
+
+## 🌐 Rotas da Aplicação
+
+- `/` - Dashboard principal
+- `/assets` - Análise de ativos
+- `/markov-chains` - Regimes de Markov
+- `/volatility` - Análise de volatilidade
+
+## 📦 Dependências Principais
+
+```json
+{
+  "react": "^19.1.1",
+  "react-dom": "^19.1.1",
+  "react-router-dom": "^7.9.5",
+  "tailwindcss": "^4.1.16",
+  "recharts": "^2.15.4",
+  "apexcharts": "^5.3.6",
+  "react-grid-layout": "^1.5.2",
+  "@radix-ui/react-*": "latest",
+  "lucide-react": "^0.552.0",
+  "zod": "^4.1.12"
+}
+>>>>>>> 7b1da332b56a078a5435fe904ba1eadbb2fab4c4
 ```
 
 ### Opção 2: Ambiente Local
