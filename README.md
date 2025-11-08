@@ -253,20 +253,6 @@ npm run type-check
 - `/markov-chains` - Regimes de Markov
 - `/volatility` - Análise de volatilidade
 
-## 🧪 Desenvolvimento
-
-### Estrutura de Componentes
-
-Siga o padrão de organização:
-
-```
-components/
-  feature-name/
-    index.tsx          # Exportações principais
-    FeatureMain.tsx    # Componente principal
-    FeatureItem.tsx    # Sub-componente
-```
-
 ## 📦 Dependências Principais
 
 ```json
