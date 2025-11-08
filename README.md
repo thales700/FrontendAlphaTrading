@@ -2,7 +2,7 @@
 
 Interface web moderna e interativa para análise financeira com dashboard personalizável, gráficos em tempo real e visualizações de dados de mercado.
 
-> **Repositório Original**: [FrontendAlphaTrading](https://github.com/thales700/alphaTradingDashboard/tree/main)
+> **Repositório Original**: [AlphaTradingDashboard](https://github.com/thales700/alphaTradingDashboard/tree/main)
 
 ## 📝 Sobre
 
