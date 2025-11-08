@@ -6,7 +6,7 @@ Interface web moderna e interativa para análise financeira com dashboard person
 
 ## 📝 Sobre
 
-O frontend do FinancialDash é uma aplicação web construída com React e TypeScript que oferece:
+O frontend do AlphaTradingDashboard é uma aplicação web construída com React e TypeScript que oferece:
 
 - **Dashboard Personalizável**: Layout drag-and-drop com widgets reorganizáveis
 - **Gráficos Interativos**: Visualizações de dados usando Recharts e ApexCharts
