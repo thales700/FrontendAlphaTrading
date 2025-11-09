@@ -435,16 +435,6 @@ Edite o arquivo `src/app/globals.css`:
 }
 ```
 
-## 🔌 Integração com Backend
-
-### Configuração da API
-
-Configure a URL da API no arquivo `.env`:
-
-```env
-VITE_API_URL=http://localhost:8000
-```
-
 ### Exemplo de Chamada API
 
 ```typescript
@@ -473,32 +463,6 @@ const fetchQuotations = async (symbol: string) => {
 - `/markov-chains` - Regimes de Markov
 - `/volatility` - Análise de volatilidade
 
-## 🧪 Desenvolvimento
-
-### Estrutura de Componentes
-
-Siga o padrão de organização:
-
-```
-components/
-  feature-name/
-    index.tsx          # Exportações principais
-    FeatureMain.tsx    # Componente principal
-    FeatureItem.tsx    # Sub-componente
-```
-
-### Convenções de Código
-
-- Use TypeScript para type safety
-- Componentes funcionais com hooks
-- Props com interfaces TypeScript
-- CSS com Tailwind classes
-- Evite inline styles
-- Use componentes UI da biblioteca
-
-### Hot Module Replacement (HMR)
-
-O Vite fornece HMR instantâneo. Suas mudanças aparecerão automaticamente no navegador sem refresh completo.
 
 ## 📦 Dependências Principais
 
@@ -517,64 +481,6 @@ O Vite fornece HMR instantâneo. Suas mudanças aparecerão automaticamente no n
 }
 ```
 
-## 🐛 Troubleshooting
-
-### Porta 5173 já em uso
-
-```bash
-# Altere a porta no vite.config.ts
-export default defineConfig({
-  server: {
-    port: 3000,
-  },
-  // ...
-})
-```
-
-### Erro de dependências
-
-```bash
-# Limpar cache e reinstalar
-rm -rf node_modules
-rm package-lock.json
-npm install
-```
-
-### Problemas com TypeScript
-
-```bash
-# Verificar tipos
-npm run type-check
-
-# Limpar cache do TypeScript
-rm -rf node_modules/.cache
-```
-
-### Erro de build
-
-```bash
-# Verificar configuração do Vite
-# Verificar imports e exports
-# Verificar se todos os arquivos TypeScript compilam
-npm run build -- --debug
-```
-
-### Layout não salva
-
-```bash
-# Verificar localStorage no DevTools
-# Limpar localStorage
-localStorage.clear()
-```
-
-## 🎯 Boas Práticas
-
-1. **Componentes Pequenos**: Mantenha componentes focados e reutilizáveis
-2. **TypeScript**: Use types/interfaces para todas as props
-3. **Performance**: Use React.memo e useMemo quando apropriado
-4. **Acessibilidade**: Use componentes Radix UI que são acessíveis por padrão
-5. **Responsividade**: Teste em diferentes tamanhos de tela
-6. **Code Splitting**: Use lazy loading para rotas quando apropriado
 
 ## 📚 Documentação Adicional
 
