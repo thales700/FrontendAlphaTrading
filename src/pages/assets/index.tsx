@@ -83,7 +83,7 @@ export function AssetsPage() {
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Ativos</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Ativos</h1>
         <p className="text-muted-foreground">
           Explore os ativos disponíveis e as funcionalidades do gráfico de candlestick
         </p>
@@ -94,7 +94,7 @@ export function AssetsPage() {
       {/* Seção de Features do Candlestick */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Funcionalidades do Gráfico Candlestick</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Funcionalidades do Gráfico Candlestick</h2>
           <p className="text-sm text-muted-foreground">
             Recursos disponíveis para análise técnica e visualização de dados de mercado
           </p>
@@ -129,7 +129,7 @@ export function AssetsPage() {
       {/* Seção de Ativos Disponíveis */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Ativos Disponíveis</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Ativos Disponíveis</h2>
           <p className="text-sm text-muted-foreground">
             Lista completa de {assets.length} ativos disponíveis para análise no dashboard
           </p>
@@ -183,7 +183,7 @@ export function AssetsPage() {
                 1
               </div>
               <div>
-                <h4 className="font-medium mb-1">Adicione o Card de Candlestick</h4>
+                <h4 className="font-medium mb-1 text-foreground">Adicione o Card de Candlestick</h4>
                 <p className="text-sm text-muted-foreground">
                   No dashboard principal, clique em "Adicionar Card" e selecione "Gráfico Candlestick"
                 </p>
@@ -195,7 +195,7 @@ export function AssetsPage() {
                 2
               </div>
               <div>
-                <h4 className="font-medium mb-1">Selecione o Ativo</h4>
+                <h4 className="font-medium mb-1 text-foreground">Selecione o Ativo</h4>
                 <p className="text-sm text-muted-foreground">
                   Use o menu dropdown no cabeçalho do card para escolher o ativo desejado
                 </p>
@@ -207,7 +207,7 @@ export function AssetsPage() {
                 3
               </div>
               <div>
-                <h4 className="font-medium mb-1">Configure as Visualizações</h4>
+                <h4 className="font-medium mb-1 text-foreground">Configure as Visualizações</h4>
                 <p className="text-sm text-muted-foreground">
                   Escolha o timeframe (diário ou 15min) e ative/desative o volume conforme necessário
                 </p>
@@ -219,7 +219,7 @@ export function AssetsPage() {
                 4
               </div>
               <div>
-                <h4 className="font-medium mb-1">Interaja com o Gráfico</h4>
+                <h4 className="font-medium mb-1 text-foreground">Interaja com o Gráfico</h4>
                 <p className="text-sm text-muted-foreground">
                   Use as ferramentas de zoom, pan e seleção para analisar períodos específicos
                 </p>

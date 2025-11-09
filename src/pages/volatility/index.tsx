@@ -125,7 +125,7 @@ export function VolatilityPage() {
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Níveis de Volatilidade</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Níveis de Volatilidade</h1>
         <p className="text-muted-foreground">
           Análise de volatilidade usando modelos GARCH e suas variantes para previsão de risco
         </p>
@@ -136,7 +136,7 @@ export function VolatilityPage() {
       {/* Seção de O que são Modelos GARCH */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">O que são Modelos GARCH?</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">O que são Modelos GARCH?</h2>
           <p className="text-sm text-muted-foreground">
             Entenda os conceitos fundamentais e aplicações em análise de risco financeiro
           </p>
@@ -189,7 +189,7 @@ export function VolatilityPage() {
       {/* Seção de Features */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Funcionalidades do Gráfico de Volatilidade</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Funcionalidades do Gráfico de Volatilidade</h2>
           <p className="text-sm text-muted-foreground">
             Recursos disponíveis para análise de volatilidade e identificação de riscos
           </p>
@@ -224,7 +224,7 @@ export function VolatilityPage() {
       {/* Seção de Modelos */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Tipos de Modelos Disponíveis</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Tipos de Modelos Disponíveis</h2>
           <p className="text-sm text-muted-foreground">
             Entenda as diferenças entre GARCH, EGARCH e FIGARCH
           </p>
@@ -269,7 +269,7 @@ export function VolatilityPage() {
       {/* Seção de Níveis Sigma */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Interpretação dos Níveis de Desvio Padrão (σ)</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Interpretação dos Níveis de Desvio Padrão (σ)</h2>
           <p className="text-sm text-muted-foreground">
             Entenda o significado de cada banda de volatilidade no gráfico
           </p>
@@ -328,7 +328,7 @@ export function VolatilityPage() {
       {/* Seção de Ativos Disponíveis */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Ativos com Análise de Volatilidade</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Ativos com Análise de Volatilidade</h2>
           <p className="text-sm text-muted-foreground">
             {isLoading ? 'Carregando...' : `${assets.length} ativos disponíveis com modelos GARCH, EGARCH e FIGARCH calculados`}
           </p>
@@ -370,7 +370,7 @@ export function VolatilityPage() {
                 1
               </div>
               <div>
-                <h4 className="font-medium mb-1">Adicione o Card de Níveis de Volatilidade</h4>
+                <h4 className="font-medium mb-1 text-foreground">Adicione o Card de Níveis de Volatilidade</h4>
                 <p className="text-sm text-muted-foreground">
                   No dashboard principal, clique em "Adicionar Card" e selecione "Níveis de Volatilidade GARCH"
                 </p>
@@ -382,7 +382,7 @@ export function VolatilityPage() {
                 2
               </div>
               <div>
-                <h4 className="font-medium mb-1">Selecione o Ativo e Modelo</h4>
+                <h4 className="font-medium mb-1 text-foreground">Selecione o Ativo e Modelo</h4>
                 <p className="text-sm text-muted-foreground">
                   Escolha o ativo desejado e o modelo de volatilidade (GARCH, EGARCH ou FIGARCH)
                 </p>
@@ -394,7 +394,7 @@ export function VolatilityPage() {
                 3
               </div>
               <div>
-                <h4 className="font-medium mb-1">Analise os Níveis de Volatilidade</h4>
+                <h4 className="font-medium mb-1 text-foreground">Analise os Níveis de Volatilidade</h4>
                 <p className="text-sm text-muted-foreground">
                   Observe as bandas de ±1σ, ±2σ e ±3σ e identifique quando o preço se aproxima de níveis extremos
                 </p>
@@ -406,7 +406,7 @@ export function VolatilityPage() {
                 4
               </div>
               <div>
-                <h4 className="font-medium mb-1">Ajuste sua Estratégia</h4>
+                <h4 className="font-medium mb-1 text-foreground">Ajuste sua Estratégia</h4>
                 <p className="text-sm text-muted-foreground">
                   Use as informações de volatilidade para ajustar tamanho de posições, stop-loss e estratégias de trading
                 </p>
@@ -421,7 +421,7 @@ export function VolatilityPage() {
       {/* Seção de Aplicações Práticas */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Aplicações Práticas</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Aplicações Práticas</h2>
           <p className="text-sm text-muted-foreground">
             Como usar a análise de volatilidade em suas estratégias de trading
           </p>

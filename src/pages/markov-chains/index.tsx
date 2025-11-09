@@ -71,7 +71,7 @@ export function MarkovChainsPage() {
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Cadeias de Markov</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Cadeias de Markov</h1>
         <p className="text-muted-foreground">
           Análise de regimes de mercado usando Modelos Ocultos de Markov (Hidden Markov Models)
         </p>
@@ -82,7 +82,7 @@ export function MarkovChainsPage() {
       {/* Seção de O que são Cadeias de Markov */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">O que são Cadeias de Markov?</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">O que são Cadeias de Markov?</h2>
           <p className="text-sm text-muted-foreground">
             Entenda os conceitos fundamentais e aplicações em análise financeira
           </p>
@@ -134,7 +134,7 @@ export function MarkovChainsPage() {
       {/* Seção de Features */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Funcionalidades do Gráfico de Cadeias de Markov</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Funcionalidades do Gráfico de Cadeias de Markov</h2>
           <p className="text-sm text-muted-foreground">
             Recursos disponíveis para análise de regimes e visualização de estados
           </p>
@@ -169,7 +169,7 @@ export function MarkovChainsPage() {
       {/* Seção de Estados */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Interpretação dos Estados</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Interpretação dos Estados</h2>
           <p className="text-sm text-muted-foreground">
             Entenda o significado de cada estado identificado pelo modelo
           </p>
@@ -219,7 +219,7 @@ export function MarkovChainsPage() {
       {/* Seção de Ativos Disponíveis */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Ativos com Análise HMM</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Ativos com Análise HMM</h2>
           <p className="text-sm text-muted-foreground">
             {assets.length} ativos disponíveis com modelos de 2 e 3 estados calculados
           </p>
@@ -254,7 +254,7 @@ export function MarkovChainsPage() {
                 1
               </div>
               <div>
-                <h4 className="font-medium mb-1">Adicione o Card de Cadeias de Markov</h4>
+                <h4 className="font-medium mb-1 text-foreground">Adicione o Card de Cadeias de Markov</h4>
                 <p className="text-sm text-muted-foreground">
                   No dashboard principal, clique em "Adicionar Card" e selecione "Cadeias de Markov"
                 </p>
@@ -266,7 +266,7 @@ export function MarkovChainsPage() {
                 2
               </div>
               <div>
-                <h4 className="font-medium mb-1">Selecione o Ativo e Número de Estados</h4>
+                <h4 className="font-medium mb-1 text-foreground">Selecione o Ativo e Número de Estados</h4>
                 <p className="text-sm text-muted-foreground">
                   Escolha o ativo desejado e defina se deseja usar modelo de 2 ou 3 estados
                 </p>
@@ -278,7 +278,7 @@ export function MarkovChainsPage() {
                 3
               </div>
               <div>
-                <h4 className="font-medium mb-1">Personalize as Cores dos Estados</h4>
+                <h4 className="font-medium mb-1 text-foreground">Personalize as Cores dos Estados</h4>
                 <p className="text-sm text-muted-foreground">
                   Use os seletores de cor para definir cores que facilitem sua análise visual dos regimes
                 </p>
@@ -290,7 +290,7 @@ export function MarkovChainsPage() {
                 4
               </div>
               <div>
-                <h4 className="font-medium mb-1">Analise os Regimes Identificados</h4>
+                <h4 className="font-medium mb-1 text-foreground">Analise os Regimes Identificados</h4>
                 <p className="text-sm text-muted-foreground">
                   Observe as transições de estados ao longo do tempo e identifique padrões nos regimes de mercado
                 </p>
@@ -305,7 +305,7 @@ export function MarkovChainsPage() {
       {/* Seção de Aplicações Práticas */}
       <section className="space-y-4">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Aplicações Práticas</h2>
+          <h2 className="text-2xl font-semibold mb-2 text-foreground">Aplicações Práticas</h2>
           <p className="text-sm text-muted-foreground">
             Como usar a análise de regimes em suas estratégias de trading
           </p>
