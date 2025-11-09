@@ -82,15 +82,6 @@ export function AssetsPage() {
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Ativos</h1>
-        <p className="text-muted-foreground">
-          Explore os ativos disponíveis e as funcionalidades do gráfico de candlestick
-        </p>
-      </div>
-
-      <Separator />
-
       {/* Seção de Features do Candlestick */}
       <section className="space-y-4">
         <div>

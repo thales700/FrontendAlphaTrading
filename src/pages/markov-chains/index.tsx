@@ -70,15 +70,6 @@ export function MarkovChainsPage() {
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Cadeias de Markov</h1>
-        <p className="text-muted-foreground">
-          Análise de regimes de mercado usando Modelos Ocultos de Markov (Hidden Markov Models)
-        </p>
-      </div>
-
-      <Separator />
-
       {/* Seção de O que são Cadeias de Markov */}
       <section className="space-y-4">
         <div>

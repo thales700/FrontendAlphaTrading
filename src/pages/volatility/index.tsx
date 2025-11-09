@@ -124,15 +124,6 @@ export function VolatilityPage() {
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Níveis de Volatilidade</h1>
-        <p className="text-muted-foreground">
-          Análise de volatilidade usando modelos GARCH e suas variantes para previsão de risco
-        </p>
-      </div>
-
-      <Separator />
-
       {/* Seção de O que são Modelos GARCH */}
       <section className="space-y-4">
         <div>
