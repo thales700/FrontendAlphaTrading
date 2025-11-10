@@ -50,14 +50,14 @@ export function Layout() {
         } as React.CSSProperties
       }
     >
-      <div className="flex w-full p-0"> 
+      <div className="flex w-full p-0 overflow-x-hidden max-w-full"> 
         <AppSidebar variant="inset" />
 
-        <SidebarInset className="w-full ">
+        <SidebarInset className="w-full overflow-x-hidden max-w-full">
           <SiteHeader {...headerConfig} />
-          <div className="flex flex-1 flex-col">
-            <div className="@container/main flex flex-1 flex-col gap-2 w-full">
-              <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 w-full">
+          <div className="flex flex-1 flex-col overflow-x-hidden max-w-full">
+            <div className="@container/main flex flex-1 flex-col gap-2 w-full overflow-x-hidden max-w-full">
+              <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 w-full overflow-x-hidden max-w-full">
                 {/* Dashboard - mantido montado para performance, apenas escondido quando não ativo */}
                 <div style={{ display: isDashboard ? "contents" : "none" }}>
                   <DashboardPage />

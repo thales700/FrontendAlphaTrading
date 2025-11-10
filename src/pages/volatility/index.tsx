@@ -123,7 +123,7 @@ export function VolatilityPage() {
   ]
 
   return (
-    <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full">
+    <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full max-w-full overflow-x-hidden">
       {/* Seção de O que são Modelos GARCH */}
       <section className="space-y-4">
         <div>
@@ -147,7 +147,7 @@ export function VolatilityPage() {
               modelos simples que assumem volatilidade constante, os modelos GARCH reconhecem que a volatilidade varia ao 
               longo do tempo e pode ser prevista com base em valores passados.
             </p>
-            <div className="grid gap-3 md:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 w-full">
               <div className="flex gap-3 p-3 bg-background rounded-lg border">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <TrendingUp className="h-5 w-5" />
@@ -186,7 +186,7 @@ export function VolatilityPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
           {volatilityFeatures.map((feature, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow">
               <CardHeader>
@@ -221,7 +221,7 @@ export function VolatilityPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
           {modelDescriptions.map((model, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow">
               <CardHeader>
@@ -266,7 +266,7 @@ export function VolatilityPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
           {sigmaLevels.map((sigma, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow">
               <CardHeader>
@@ -325,7 +325,7 @@ export function VolatilityPage() {
           </p>
         </div>
 
-        <div className="grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full">
           {isLoading ? (
             <div className="col-span-full text-center text-muted-foreground py-8">
               Carregando ativos...
@@ -418,7 +418,7 @@ export function VolatilityPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 w-full">
           <Card>
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">

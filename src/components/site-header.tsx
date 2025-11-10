@@ -46,10 +46,10 @@ export function SiteHeader({ title, description }: SiteHeaderProps) {
   const hasDescription = Boolean(description)
 
   return (
-    <header className={`flex shrink-0 gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height) ${
+    <header className={`flex shrink-0 gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height) max-w-full overflow-x-hidden ${
       hasDescription ? 'h-auto py-4' : 'h-(--header-height) items-center'
     }`}>
-      <div className={`flex w-full gap-1 px-4 lg:gap-2 lg:px-6 ${hasDescription ? 'flex-col' : 'items-center'}`}>
+      <div className={`flex w-full gap-1 px-4 lg:gap-2 lg:px-6 max-w-full overflow-x-hidden ${hasDescription ? 'flex-col' : 'items-center'}`}>
         <div className="flex items-center gap-1 lg:gap-2">
           <Button
             size="icon"
@@ -66,15 +66,15 @@ export function SiteHeader({ title, description }: SiteHeaderProps) {
             className="mx-2 data-[orientation=vertical]:h-4"
           />
           {!hasDescription && (
-            <h1 className="text-base font-medium text-foreground">{title || "Dashboard"}</h1>
+            <h1 className="text-sm sm:text-base font-medium text-foreground truncate">{title || "Dashboard"}</h1>
           )}
           {!hasDescription && <div className="ml-auto flex items-center gap-2" />}
         </div>
         
         {hasDescription && (
-          <div className="flex flex-col gap-1 mt-2">
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">{title}</h1>
-            <p className="text-sm text-muted-foreground">{description}</p>
+          <div className="flex flex-col gap-1 mt-2 max-w-full">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground break-words">{title}</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground break-words">{description}</p>
           </div>
         )}
       </div>

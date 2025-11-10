@@ -228,11 +228,11 @@ const DashboardGrid = React.memo(function DashboardGrid({ storageKey = "dashboar
 
   return (
     <div ref={containerRef} className="dashboard-scroll-container px-4 lg:px-6 relative z-0 overflow-auto">
-      <div className="min-w-max pb-8">
+      <div className="pb-8">
         <GridLayout
           className="layout"
           layout={layout}
-          width={Math.max(containerWidth, 2000)} // Largura mínima para permitir posicionamento livre
+          width={containerWidth} // Usar largura real do container para responsividade
           cols={dynamicCols} // Usar número de colunas dinâmico baseado na largura
           rowHeight={50}
           margin={[16, 16]}

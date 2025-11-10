@@ -15,17 +15,17 @@ export default function App() {
           
           {/* Outras páginas - renderizadas apenas quando acessadas */}
           <Route path="assets" element={
-            <div className="px-4 lg:px-6">
+            <div className="px-4 lg:px-6 max-w-full overflow-x-hidden">
               <AssetsPage />
             </div>
           } />
           <Route path="markov-chains" element={
-            <div className="px-4 lg:px-6">
+            <div className="px-4 lg:px-6 max-w-full overflow-x-hidden">
               <MarkovChainsPage />
             </div>
           } />
           <Route path="volatility" element={
-            <div className="px-4 lg:px-6">
+            <div className="px-4 lg:px-6 max-w-full overflow-x-hidden">
               <VolatilityPage />
             </div>
           } />

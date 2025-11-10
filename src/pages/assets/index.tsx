@@ -81,7 +81,7 @@ export function AssetsPage() {
   ]
 
   return (
-    <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full">
+    <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full max-w-full overflow-x-hidden">
       {/* Seção de Features do Candlestick */}
       <section className="space-y-4">
         <div>
@@ -91,7 +91,7 @@ export function AssetsPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
           {candlestickFeatures.map((feature, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow">
               <CardHeader>
@@ -126,7 +126,7 @@ export function AssetsPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
           {assets.map((asset) => {
             const info = assetDescriptions[asset] || {
               name: asset,

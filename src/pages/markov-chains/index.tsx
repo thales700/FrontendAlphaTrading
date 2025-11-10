@@ -69,7 +69,7 @@ export function MarkovChainsPage() {
   ]
 
   return (
-    <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full">
+    <div className="flex flex-1 flex-col gap-6 p-4 pt-0 w-full max-w-full overflow-x-hidden">
       {/* Seção de O que são Cadeias de Markov */}
       <section className="space-y-4">
         <div>
@@ -92,7 +92,7 @@ export function MarkovChainsPage() {
               diferentes "estados" ou "regimes" nos mercados financeiros. Esses estados são "ocultos" porque não podem ser 
               observados diretamente, mas podem ser inferidos a partir dos dados de preço e volume.
             </p>
-            <div className="grid gap-3 md:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 w-full">
               <div className="flex gap-3 p-3 bg-background rounded-lg border">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <TrendingUp className="h-5 w-5" />
@@ -131,7 +131,7 @@ export function MarkovChainsPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
           {markovFeatures.map((feature, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow">
               <CardHeader>
@@ -166,7 +166,7 @@ export function MarkovChainsPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
           {stateDescriptions.map((state, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow">
               <CardHeader>
@@ -216,7 +216,7 @@ export function MarkovChainsPage() {
           </p>
         </div>
 
-        <div className="grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-full">
           {assets.map((asset) => (
             <Card key={asset} className="hover:shadow-md transition-shadow">
               <CardContent className="p-4 text-center">
@@ -302,7 +302,7 @@ export function MarkovChainsPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 w-full">
           <Card>
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">

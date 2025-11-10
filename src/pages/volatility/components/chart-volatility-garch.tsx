@@ -530,15 +530,15 @@ export const ChartVolatilityGarch = React.memo(function ChartVolatilityGarch({ o
     <Card ref={cardRef} className="@container/card flex h-full flex-col overflow-hidden relative">
       <CardHeader className="min-h-11 flex-shrink-0">
         {/* Primeira linha: Título e controles principais */}
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap w-full">
           <span className="drag-handle cursor-grab shrink-0 rounded text-muted-foreground inline-flex items-center" aria-label="Arraste para mover" title="Arraste para mover">
             <IconDragDrop2 />
           </span>
-          <CardTitle className="shrink-0">Níveis de Volatilidade</CardTitle>
-          <CardDescription className="shrink-0">
+          <CardTitle className="shrink-0 text-base sm:text-lg">Níveis de Volatilidade</CardTitle>
+          <CardDescription className="shrink-0 text-xs sm:text-sm">
             {selectedAsset} - Modelo {selectedModel} - 15 Minutos
           </CardDescription>
-          <div className="flex items-center gap-2 flex-wrap ml-auto">
+          <div className="flex items-center gap-2 flex-wrap ml-auto max-w-full">
             <Select value={selectedAsset} onValueChange={(value) => setSelectedAsset(value as Asset)}>
               <SelectTrigger className="w-32 shrink-0" size="sm">
                 <SelectValue />
