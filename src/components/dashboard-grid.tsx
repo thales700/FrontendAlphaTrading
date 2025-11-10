@@ -18,6 +18,7 @@ type DashboardGridProps = {
 
 const DEFAULT_COLS = 12
 const MIN_COL_WIDTH = 80 // Largura mínima em pixels por coluna
+const MAX_COLS = 300 // Máximo de colunas para permitir layouts flexíveis
 
 /**
  * Sistema de Colunas Dinâmicas
@@ -29,7 +30,7 @@ const MIN_COL_WIDTH = 80 // Largura mínima em pixels por coluna
  * Como funciona:
  * - A cada 80px de largura, o sistema cria uma nova coluna
  * - Mínimo: 12 colunas (para telas pequenas)
- * - Máximo: 100 colunas (para telas muito grandes)
+ * - Máximo: 300 colunas (para telas muito grandes com zoom out)
  * - Exemplo: Container de 2400px = 30 colunas (2400 ÷ 80)
  * 
  * Benefícios:
@@ -37,49 +38,53 @@ const MIN_COL_WIDTH = 80 // Largura mínima em pixels por coluna
  * ✅ Adaptação automática ao tamanho da tela
  * ✅ Melhor aproveitamento do espaço disponível
  * ✅ Flexibilidade para criar layouts complexos
+ * ✅ Suporta até 5+ colunas de cards em telas grandes
  */
 function calculateColumns(containerWidth: number): number {
   // Calcular quantas colunas cabem no container
   const cols = Math.floor(containerWidth / MIN_COL_WIDTH)
-  // Mínimo de 12 colunas, máximo de 100 colunas
-  return Math.max(DEFAULT_COLS, Math.min(100, cols))
+  // Mínimo de 12 colunas, máximo de 300 colunas
+  return Math.max(DEFAULT_COLS, Math.min(MAX_COLS, cols))
 }
 
 // Função para determinar o tamanho inicial baseado no tipo de card
 // Agora recebe o número de colunas para calcular proporcionalmente
 function getInitialSize(itemId: string, totalCols: number): { w: number; h: number; minW: number; minH: number } {
-  // Card de Markov precisa de ainda mais espaço devido aos controles e gráfico complexo
+  // Card de Markov precisa de espaço devido aos controles e gráfico complexo
+  // Ajustado para 40% para permitir múltiplas colunas
   if (itemId.includes("markov-chains")) {
     return {
-      w: totalCols, // Largura total para garantir espaço para todos os controles
+      w: Math.max(4, Math.floor(totalCols * 0.4)), // 40% da largura (permite 2 colunas)
       h: 14, // Altura maior (14 linhas) para acomodar header com controles e gráfico
-      minW: 2, // Sem limitação de largura mínima
+      minW: 2, // Largura mínima
       minH: 3, // Altura mínima reduzida
     }
   }
   // Cards de volatilidade GARCH com tamanho médio
+  // Ajustado para 33% para permitir 3 colunas
   if (itemId.includes("volatility-garch")) {
     return {
-      w: Math.floor(totalCols * 0.67), // 67% da largura total
+      w: Math.max(4, Math.floor(totalCols * 0.33)), // 33% da largura (permite 3 colunas)
       h: 10, // Altura média (10 linhas) para acomodar gráfico e controles
-      minW: 2, // Sem limitação de largura mínima
+      minW: 2, // Largura mínima
       minH: 3, // Altura mínima reduzida
     }
   }
-  // Cards candlestick precisam de mais espaço
+  // Cards candlestick com tamanho médio
+  // Ajustado para 33% para permitir 3 colunas
   if (itemId.includes("candlestick-chart")) {
     return {
-      w: Math.floor(totalCols * 0.67), // 67% da largura total
+      w: Math.max(4, Math.floor(totalCols * 0.33)), // 33% da largura (permite 3 colunas)
       h: 10, // Altura maior (10 linhas)
-      minW: 2, // Sem limitação de largura mínima
+      minW: 2, // Largura mínima
       minH: 3, // Altura mínima reduzida
     }
   }
-  // Tamanho padrão para outros cards - 25% da largura
+  // Tamanho padrão para outros cards - 20% da largura (permite 5 colunas)
   return {
-    w: Math.floor(totalCols / 4),
+    w: Math.max(4, Math.floor(totalCols * 0.2)),
     h: 3,
-    minW: 2, // Sem limitação de largura mínima
+    minW: 2, // Largura mínima
     minH: 2, // Altura mínima reduzida
   }
 }
